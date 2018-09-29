@@ -151,16 +151,16 @@ function delete(){
     // query to delete record
     $query = "DELETE FROM
                 " . $this->table_name . 
-                " WHERE name=:name";
+                " WHERE id=:id";
  
     // prepare query
     $stmt = $this->conn->prepare($query);
  
     // sanitize
-    $this->name=htmlspecialchars(strip_tags($this->name));
+    $this->id=htmlspecialchars(strip_tags($this->id));
     
     // bind value
-    $stmt->bindParam(":name", $this->name);
+    $stmt->bindParam(":id", $this->id);
     
     // execute query
     if($stmt->execute()){

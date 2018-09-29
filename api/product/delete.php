@@ -21,7 +21,7 @@ $product = new Product($db);
 $data = json_decode(file_get_contents("php://input"));
  
 // set product property values
-$product->name = $data->name;
+$product->id = $data->id;
  
 // update the product
 if($product->delete()){

@@ -1,4 +1,7 @@
-
+required:
+https://jquery.com/
+https://github.com/macek/jquery-serialize-object
+http://bootboxjs.com/
 
 to test the REST PHP API use the following (with postman)
 
