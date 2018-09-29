@@ -241,3 +241,4 @@ public function count(){
     return $row['total_rows'];
 }
 }
+?>
