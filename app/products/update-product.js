@@ -9,32 +9,6 @@ $(document).ready(function () {
 
             // values will be used to fill out our form
             var name = data.name;
-            var price = data.price;
-            var description = data.description;
-            var category_id = data.category_id;
-            var category_name = data.category_name;
-
-            // load list of categories
-            $.getJSON("http://localhost/php-api-codeofaninja/api/category/read.php", function (data) {
-
-                // build 'categories option' html
-                // loop through returned list of data
-                var categories_options_html = "";
-                categories_options_html += "<select name='category_id' class='form-control'>";
-
-                $.each(data.records, function (key, val) {
-
-                    // pre-select option is category id is the same
-                    if (val.id == category_id) {
-                        categories_options_html += "<option value='" + val.id + "' selected>" + val.name + "</option>";
-                    }
-
-                    else {
-                        categories_options_html += "<option value='" + val.id + "'>" + val.name + "</option>";
-                    }
-                });
-                categories_options_html += "</select>";
-
                 // store 'update product' html to this variable
                 var update_product_html = "";
 
@@ -53,24 +27,6 @@ $(document).ready(function () {
                 update_product_html += "<td><input value=\"" + name + "\" type='text' name='name' class='form-control' required /></td>";
                 update_product_html += "</tr>";
 
-                // price field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Price</td>";
-                update_product_html += "<td><input value=\"" + price + "\" type='number' min='1' name='price' class='form-control' required /></td>";
-                update_product_html += "</tr>";
-
-                // description field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Description</td>";
-                update_product_html += "<td><textarea name='description' class='form-control' required>" + description + "</textarea></td>";
-                update_product_html += "</tr>";
-
-                // categories 'select' field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Category</td>";
-                update_product_html += "<td>" + categories_options_html + "</td>";
-                update_product_html += "</tr>";
-
                 update_product_html += "<tr>";
 
                 // hidden 'product id' to identify which record to delete
@@ -87,12 +43,11 @@ $(document).ready(function () {
 
                 update_product_html += "</table>";
                 update_product_html += "</form>";
-                // inject to 'page-content' of our app
+                // inject to 'page-content2' of our app
                 $("#page-content").html(update_product_html);
 
                 // chage page title
                 changePageTitle("Update Product");
-            });
 
         });
     });

@@ -25,12 +25,7 @@ $product->readOne();
 // create array
 $product_arr = array(
     "id" =>  $product->id,
-    "name" => $product->name,
-    "description" => $product->description,
-    "price" => $product->price,
-    "category_id" => $product->category_id,
-    "category_name" => $product->category_name
- 
+    "name" => $product->name
 );
  
 // make it json format

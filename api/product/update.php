@@ -24,11 +24,7 @@ $data = json_decode(file_get_contents("php://input"));
 $product->id = $data->id;
 
 // set product property values
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
- 
+$product->name = $data->name; 
 // update the product
 if($product->update()){
     echo '{';

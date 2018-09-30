@@ -28,10 +28,8 @@ function readProductsTemplate(data, keywords){
  
         // creating our table heading
         read_products_html+="<tr>";
-            read_products_html+="<th class='w-25-pct'>Name</th>";
-            read_products_html+="<th class='w-10-pct'>Price</th>";
-            read_products_html+="<th class='w-15-pct'>Category</th>";
-            read_products_html+="<th class='w-25-pct text-align-center'>Action</th>";
+            read_products_html+="<th class='w-25-pct'>id</th>";
+            read_products_html+="<th class='w-10-pct'>name</th>";
         read_products_html+="</tr>";
  
     // loop through returned list of data
@@ -40,9 +38,8 @@ function readProductsTemplate(data, keywords){
         // creating new table row per record
         read_products_html+="<tr>";
  
-            read_products_html+="<td>" + val.name + "</td>";
-            read_products_html+="<td>$" + val.price + "</td>";
-            read_products_html+="<td>" + val.category_name + "</td>";
+            read_products_html+="<td>" + val.id + "</td>";
+            read_products_html+="<td>$" + val.name + "</td>";
  
             // 'action' buttons
             read_products_html+="<td>";

@@ -42,11 +42,7 @@ if($num>0){
  
         $product_item=array(
             "id" => $id,
-            "name" => $name,
-            "description" => html_entity_decode($description),
-            "price" => $price,
-            "category_id" => $category_id,
-            "category_name" => $category_name
+            "name" => $name
         );
  
         array_push($products_arr["records"], $product_item);

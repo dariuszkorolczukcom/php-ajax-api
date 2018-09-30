@@ -3,7 +3,7 @@ $(document).ready(function () {
     // handle 'read one' button click
     $(document).on('click', '.read-one-product-button', function () {
         // get product id
-        var id = $(this).attr('data-id');
+        let id = $(this).attr('data-id');
         // read product record based on given ID
         $.getJSON("http://localhost/php-api-codeofaninja/api/product/read_one.php?id=" + id, function (data) {
             // start html
@@ -20,24 +20,6 @@ $(document).ready(function () {
             read_one_product_html += "<tr>";
             read_one_product_html += "<td class='w-30-pct'>Name</td>";
             read_one_product_html += "<td class='w-70-pct'>" + data.name + "</td>";
-            read_one_product_html += "</tr>";
-
-            // product price
-            read_one_product_html += "<tr>";
-            read_one_product_html += "<td>Price</td>";
-            read_one_product_html += "<td>" + data.price + "</td>";
-            read_one_product_html += "</tr>";
-
-            // product description
-            read_one_product_html += "<tr>";
-            read_one_product_html += "<td>Description</td>";
-            read_one_product_html += "<td>" + data.description + "</td>";
-            read_one_product_html += "</tr>";
-
-            // product category name
-            read_one_product_html += "<tr>";
-            read_one_product_html += "<td>Category</td>";
-            read_one_product_html += "<td>" + data.category_name + "</td>";
             read_one_product_html += "</tr>";
 
             read_one_product_html += "</table>";

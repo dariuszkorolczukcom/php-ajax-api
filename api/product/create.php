@@ -22,10 +22,6 @@ $data = json_decode(file_get_contents("php://input"));
  
 // set product property values
 $product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
-$product->created = date('Y-m-d H:i:s');
  
 // create the product
 if($product->create()){
