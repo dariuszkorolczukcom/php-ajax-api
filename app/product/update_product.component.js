@@ -18,7 +18,7 @@ window.UpdateProductComponent = React.createClass({
     componentDidMount: function () {
 
         // read categories
-        this.serverRequestCat = $.get("http://localhost/api/category/read.php",
+        this.serverRequestCat = $.get("http://localhost/php-api-codeofaninja/api/category/read.php",
             function (categories) {
                 this.setState({
                     categories: categories.records
