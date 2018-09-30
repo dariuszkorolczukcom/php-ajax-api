@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Product } from './product';
 import { map } from 'rxjs/operators';
@@ -21,4 +21,16 @@ export class ProductService {
             .pipe(map((res: Response) => res.json()));
     }
 
+    // Send product data to remote server to create it.
+    createProduct(product): Observable<Product> {
+
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+
+        return this._http.post(
+            'http://localhost/php-api-codeofaninja/api/product/create.php',
+            product,
+            options
+        ).pipe(map((res: Response) => res.json()));
+    }
 }

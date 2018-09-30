@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Observable } from 'rxjs';
 import { Product } from '../product';
@@ -11,6 +11,7 @@ import { Product } from '../product';
 })
 export class ReadProductsComponent implements OnInit {
 
+  @Output() show_create_product_event = new EventEmitter();
   // store list of products
   products: Product[];
 
@@ -18,7 +19,12 @@ export class ReadProductsComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   // methods that we will use later
-  createProduct() { }
+  createProduct() {
+    // tell the parent component (AppComponent)
+    this.show_create_product_event.emit({
+      title: 'Create Product'
+  });
+  }
   readOneProduct(id) { }
   updateProduct(id) { }
   deleteProduct(id) { }

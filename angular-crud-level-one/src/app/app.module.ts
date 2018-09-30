@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ReadProductsComponent } from './read-products/read-products.component';
@@ -14,7 +15,9 @@ import { CreateProductComponent } from './create-product/create-product.componen
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    FormsModule,
+    HttpModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
