@@ -1,7 +1,7 @@
 // component that contains the functionalities that appear on top of
 // the products table: create product
 window.TopActionsComponent = React.createClass({
-    render: function(){
+    render: function () {
         return (
             <div>
                 <a href='#'
