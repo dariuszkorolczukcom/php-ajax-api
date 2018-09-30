@@ -1,9 +1,9 @@
 <?php
-class Product{
+class Hero{
  
     // database connection and table name
     private $conn;
-    private $table_name = "products";
+    private $table_name = "heroes";
  
     // object properties
     public $id;
