@@ -11,9 +11,10 @@
                     <h3 class="md-headline">Products</h3>
                 </div>
  
-                <!-- 'create' product button will be here -->
-            </div>
-        </md-toolbar>
+<!-- button for creating product -->
+<md-button class="md-raised" ng-click="showCreateProductForm()">Create</md-button>            </div>
+       
+</md-toolbar>
  
         <!-- 'search' bar will be here -->
  
@@ -31,8 +32,8 @@
  
                     <!-- 'read one', 'edit' and 'delete' buttons -->
                     <div class="md-secondary-container">
-                        <!-- 'read one' button will be here -->
-                        <!-- 'edit' button will be here -->
+                        <md-button class="md-raised md-info" ng-click="readOneProduct(product.id)">Read One</md-button>
+                        <md-button class="md-raised md-primary" ng-click="showUpdateProductForm(product.id)">Edit</md-button>
                         <!-- 'delete' button will be here -->
                     </div>
                     <md-divider ng-if="!$last"></md-divider>
