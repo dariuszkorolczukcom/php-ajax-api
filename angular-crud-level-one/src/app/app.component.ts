@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-crud-level-one';
+  // properties for child components
+  title = 'Read Products';
+  product_id;
+
+  // properties used to identify what views to show
+  show_read_products_html = true;
 }

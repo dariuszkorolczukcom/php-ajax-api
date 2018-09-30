@@ -1,10 +1,10 @@
-simple php api with an ajax app
+simple php api with an angular2 app
 
 API:
 https://www.codeofaninja.com/2017/02/create-simple-rest-api-in-php.html
 
 APP:
-https://www.codeofaninja.com/2015/06/php-crud-with-ajax-and-oop.html
+https://www.codeofaninja.com/2016/12/angular-crud-tutorial.html
 
 Using PhpMyAdmin, create a new "api_db"
 
