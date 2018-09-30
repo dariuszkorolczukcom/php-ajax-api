@@ -1,122 +1,197 @@
-$(document).ready(function () {
+// component that contains the logic to update a product
+window.UpdateProductComponent = React.createClass({
+    getInitialState: function () {
+        // Get this product fields from the data attributes we set on the
+        // #content div, using jQuery
+        return {
+            categories: [],
+            selectedCategoryId: 0,
+            id: 0,
+            name: '',
+            description: '',
+            price: 0,
+            successUpdate: null
+        };
+    },
 
-    // show html form when 'update product' button was clicked
-    $(document).on('click', '.update-product-button', function () {
-        // get product id
-        var id = $(this).attr('data-id');
-        // read one record based on given product id
-        $.getJSON("http://localhost/php-api-codeofaninja/api/product/read_one.php?id=" + id, function (data) {
+    // on mount, fetch all categories and one product data to stored them as this component's state
+    componentDidMount: function () {
 
-            // values will be used to fill out our form
-            var name = data.name;
-            var price = data.price;
-            var description = data.description;
-            var category_id = data.category_id;
-            var category_name = data.category_name;
-
-            // load list of categories
-            $.getJSON("http://localhost/php-api-codeofaninja/api/category/read.php", function (data) {
-
-                // build 'categories option' html
-                // loop through returned list of data
-                var categories_options_html = "";
-                categories_options_html += "<select name='category_id' class='form-control'>";
-
-                $.each(data.records, function (key, val) {
-
-                    // pre-select option is category id is the same
-                    if (val.id == category_id) {
-                        categories_options_html += "<option value='" + val.id + "' selected>" + val.name + "</option>";
-                    }
-
-                    else {
-                        categories_options_html += "<option value='" + val.id + "'>" + val.name + "</option>";
-                    }
+        // read categories
+        this.serverRequestCat = $.get("http://localhost/api/category/read.php",
+            function (categories) {
+                this.setState({
+                    categories: categories.records
                 });
-                categories_options_html += "</select>";
+            }.bind(this));
 
-                // store 'update product' html to this variable
-                var update_product_html = "";
+        // read one product data
+        var productId = this.props.productId;
+        this.serverRequestProd = $.get("http://localhost/php-api-codeofaninja/api/product/read_one.php?id=" + productId,
+            function (product) {
+                this.setState({ selectedCategoryId: product.category_id });
+                this.setState({ id: product.id });
+                this.setState({ name: product.name });
+                this.setState({ description: product.description });
+                this.setState({ price: product.price });
+            }.bind(this));
 
-                // 'read products' button to show list of products
-                update_product_html += "<div id='read-products' class='btn btn-primary pull-right m-b-15px read-products-button'>";
-                update_product_html += "<span class='glyphicon glyphicon-list'></span> Read Products";
-                update_product_html += "</div>";
-                // build 'update product' html form
-                // we used the 'required' html5 property to prevent empty fields
-                update_product_html += "<form id='update-product-form' action='#' method='post' border='0'>";
-                update_product_html += "<table class='table table-hover table-responsive table-bordered'>";
+        $('.page-header h1').text('Update product');
+    },
 
-                // name field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Name</td>";
-                update_product_html += "<td><input value=\"" + name + "\" type='text' name='name' class='form-control' required /></td>";
-                update_product_html += "</tr>";
+    // on unmount, kill categories fetching in case the request is still pending
+    componentWillUnmount: function () {
+        this.serverRequestCat.abort();
+        this.serverRequestProd.abort();
+    },
 
-                // price field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Price</td>";
-                update_product_html += "<td><input value=\"" + price + "\" type='number' min='1' name='price' class='form-control' required /></td>";
-                update_product_html += "</tr>";
+    // handle category change
+    onCategoryChange: function (e) {
+        this.setState({ selectedCategoryId: e.target.value });
+    },
 
-                // description field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Description</td>";
-                update_product_html += "<td><textarea name='description' class='form-control' required>" + description + "</textarea></td>";
-                update_product_html += "</tr>";
+    // handle name change
+    onNameChange: function (e) {
+        this.setState({ name: e.target.value });
+    },
 
-                // categories 'select' field
-                update_product_html += "<tr>";
-                update_product_html += "<td>Category</td>";
-                update_product_html += "<td>" + categories_options_html + "</td>";
-                update_product_html += "</tr>";
+    // handle description change
+    onDescriptionChange: function (e) {
+        this.setState({ description: e.target.value });
+    },
 
-                update_product_html += "<tr>";
+    // handle price change
+    onPriceChange: function (e) {
+        this.setState({ price: e.target.value });
+    },
 
-                // hidden 'product id' to identify which record to delete
-                update_product_html += "<td><input value=\"" + id + "\" name='id' type='hidden' /></td>";
+    // handle save changes button clicked
+    onSave: function (e) {
 
-                // button to submit form
-                update_product_html += "<td>";
-                update_product_html += "<button type='submit' class='btn btn-info'>";
-                update_product_html += "<span class='glyphicon glyphicon-edit'></span> Update Product";
-                update_product_html += "</button>";
-                update_product_html += "</td>";
+        // data in the form
+        var form_data = {
+            id: this.state.id,
+            name: this.state.name,
+            description: this.state.description,
+            price: this.state.price,
+            category_id: this.state.selectedCategoryId
+        };
 
-                update_product_html += "</tr>";
-
-                update_product_html += "</table>";
-                update_product_html += "</form>";
-                // inject to 'page-content' of our app
-                $("#page-content").html(update_product_html);
-
-                // chage page title
-                changePageTitle("Update Product");
-            });
-
-        });
-    });
-
-    // will run if 'create product' form was submitted
-    $(document).on('submit', '#update-product-form', function () {
-
-        // get form data
-        var form_data = $(this).serializeJSON();
         // submit form data to api
         $.ajax({
             url: "http://localhost/php-api-codeofaninja/api/product/update.php",
             type: "POST",
             contentType: 'application/json',
-            data: form_data,
-            success: function (result) {
-                // product was created, go back to products list
-                showProducts();
-            },
+            data: JSON.stringify(form_data),
+            success: function (response) {
+                this.setState({ successUpdate: response['message'] });
+            }.bind(this),
             error: function (xhr, resp, text) {
                 // show error to console
                 console.log(xhr, resp, text);
             }
         });
-        return false;
-    });
+
+        e.preventDefault();
+    },
+
+    render: function () {
+        var categoriesOptions = this.state.categories.map(function (category) {
+            return (
+                <option key={category.id} value={category.id}>{category.name}</option>
+            );
+        });
+
+        return (
+            <div>
+                {
+                    this.state.successUpdate == "Product was updated." ?
+                        <div className='alert alert-success'>
+                            Product was updated.
+                    </div>
+                        : null
+                }
+
+                {
+                    this.state.successUpdate == "Unable to update product." ?
+                        <div className='alert alert-danger'>
+                            Unable to update product. Please try again.
+                    </div>
+                        : null
+                }
+
+                <a href='#'
+                    onClick={() => this.props.changeAppMode('read')}
+                    className='btn btn-primary margin-bottom-1em'>
+                    Read Products
+            </a>
+
+                <form onSubmit={this.onSave}>
+                    <table className='table table-bordered table-hover'>
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        value={this.state.name}
+                                        required
+                                        onChange={this.onNameChange} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Description</td>
+                                <td>
+                                    <textarea
+                                        type='text'
+                                        className='form-control'
+                                        required
+                                        value={this.state.description}
+                                        onChange={this.onDescriptionChange}></textarea>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Price ($)</td>
+                                <td>
+                                    <input
+                                        type='number'
+                                        step="0.01"
+                                        className='form-control'
+                                        value={this.state.price}
+                                        required
+                                        onChange={this.onPriceChange} />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Category</td>
+                                <td>
+                                    <select
+                                        onChange={this.onCategoryChange}
+                                        className='form-control'
+                                        value={this.state.selectedCategoryId}>
+                                        <option value="-1">Select category...</option>
+                                        {categoriesOptions}
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button
+                                        className='btn btn-primary'
+                                        onClick={this.onSave}>Save Changes</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        );
+    }
 });
