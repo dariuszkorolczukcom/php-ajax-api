@@ -40,4 +40,16 @@ export class ProductService {
             .get('http://localhost/php-api-codeofaninja/api/product/read_one.php?id=' + product_id)
             .pipe(map((res: Response) => res.json()));
     }
+    // Send product data to remote server to update it.
+updateProduct(product): Observable<Product> {
+
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this._http.post(
+        'http://localhost/php-api-codeofaninja/api/product/update.php',
+        product,
+        options
+    ).pipe(map((res: Response) => res.json()));
+}
 }

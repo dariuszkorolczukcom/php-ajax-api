@@ -37,7 +37,14 @@ export class ReadProductsComponent implements OnInit {
       title: 'Read One Product'
     });
   }
-  updateProduct(id) { }
+  // when user clicks the 'update' button
+updateProduct(id) {
+  // tell the parent component (AppComponent)
+  this.show_update_product_event.emit({
+      product_id: id,
+      title: 'Update Product'
+  });
+}
   deleteProduct(id) { }
 
   // Read products from API.
