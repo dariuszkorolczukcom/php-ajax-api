@@ -38,28 +38,39 @@ export class AppComponent {
   }
 
   // show details of a product
-showReadOneProduct($event) {
+  showReadOneProduct($event) {
 
-  // set title and product ID
-  this.title = $event.title;
-  this.product_id = $event.product_id;
+    // set title and product ID
+    this.title = $event.title;
+    this.product_id = $event.product_id;
 
-  // hide all html then show only one html
-  this.hideAll_Html();
-  this.show_read_one_product_html = true;
-}
+    // hide all html then show only one html
+    this.hideAll_Html();
+    this.show_read_one_product_html = true;
+  }
 
   // show the 'update product form'
-showUpdateProduct($event) {
+  showUpdateProduct($event) {
 
-  // set title and product ID
-  this.title = $event.title;
-  this.product_id = $event.product_id;
+    // set title and product ID
+    this.title = $event.title;
+    this.product_id = $event.product_id;
 
-  // hide all html then show only one html
-  this.hideAll_Html();
-  this.show_update_product_html = true;
-}
+    // hide all html then show only one html
+    this.hideAll_Html();
+    this.show_update_product_html = true;
+  }
+  // show 'are you sure?' prompt to confirm deletion of a record
+  showDeleteProduct($event) {
+
+    // set title and product ID
+    this.title = $event.title;
+    this.product_id = $event.product_id;
+
+    // hide all html then show only one html
+    this.hideAll_Html();
+    this.show_delete_product_html = true;
+  }
 
   // hide all html views
   hideAll_Html() {

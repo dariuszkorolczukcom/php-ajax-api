@@ -52,4 +52,16 @@ updateProduct(product): Observable<Product> {
         options
     ).pipe(map((res: Response) => res.json()));
 }
+// Send product ID to remote server to delete it.
+deleteProduct(product_id) {
+
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this._http.post(
+        'http://localhost/php-api-codeofaninja/api/product/delete.php',
+        { id: product_id },
+        options
+    ).pipe(map((res: Response) => res.json()));
+}
 }
