@@ -48,7 +48,16 @@ factory.updateProduct = function($scope){
     });
 };
  
-// deleteProduct will be here
+// delete product
+factory.deleteProduct = function(id){
+    return $http({
+        method: 'POST',
+        data: { 'id' : id },
+        url: 'http://localhost/php-api-codeofaninja/api/product/delete.php'
+    });
+};
+ 
+// searchProducts will be here
      
     return factory;
 });

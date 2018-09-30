@@ -34,7 +34,7 @@
                     <div class="md-secondary-container">
                         <md-button class="md-raised md-info" ng-click="readOneProduct(product.id)">Read One</md-button>
                         <md-button class="md-raised md-primary" ng-click="showUpdateProductForm(product.id)">Edit</md-button>
-                        <!-- 'delete' button will be here -->
+                        <md-button class="md-raised md-danger" ng-click="confirmDeleteProduct($event, product.id)">Delete</md-button>
                     </div>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>

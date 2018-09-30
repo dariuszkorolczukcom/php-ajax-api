@@ -163,7 +163,53 @@ $scope.updateProduct = function(){
  
 }
  
-// confirmDeleteProduct will be here
+// cofirm product deletion
+$scope.confirmDeleteProduct = function(event, id){
+ 
+    // set id of record to delete
+    $scope.id = id;
+ 
+    // dialog settings
+    var confirm = $mdDialog.confirm()
+        .title('Are you sure?')
+        .textContent('Product will be deleted.')
+        .targetEvent(event)
+        .ok('Yes')
+        .cancel('No');
+ 
+    // show dialog
+    $mdDialog.show(confirm).then(
+        // 'Yes' button
+        function() {
+            // if user clicked 'Yes', delete product record
+            $scope.deleteProduct();
+        },
+ 
+        // 'No' button
+        function() {
+            // hide dialog
+        }
+    );
+}
+
+// delete product
+$scope.deleteProduct = function(){
+ 
+    productsFactory.deleteProduct($scope.id).then(function successCallback(response){
+ 
+        // tell the user product was deleted
+        $scope.showToast(response.data.message);
+ 
+        // refresh the list
+        $scope.readProducts();
+ 
+    }, function errorCallback(response){
+        $scope.showToast("Unable to delete record.");
+    });
+ 
+}
+ 
+// searchProducts will be here
 
      // methods for dialog box
 function DialogController($scope, $mdDialog) {
