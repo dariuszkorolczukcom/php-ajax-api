@@ -33,4 +33,11 @@ export class ProductService {
             options
         ).pipe(map((res: Response) => res.json()));
     }
+
+    // Get a product details from remote server.
+    readOneProduct(product_id): Observable<Product> {
+        return this._http
+            .get('http://localhost/php-api-codeofaninja/api/product/read_one.php?id=' + product_id)
+            .pipe(map((res: Response) => res.json()));
+    }
 }

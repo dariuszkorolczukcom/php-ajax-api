@@ -12,6 +12,10 @@ import { Product } from '../product';
 export class ReadProductsComponent implements OnInit {
 
   @Output() show_create_product_event = new EventEmitter();
+  @Output() show_read_one_product_event = new EventEmitter();
+  @Output() show_update_product_event = new EventEmitter();
+  @Output() show_delete_product_event = new EventEmitter();
+
   // store list of products
   products: Product[];
 
@@ -23,9 +27,16 @@ export class ReadProductsComponent implements OnInit {
     // tell the parent component (AppComponent)
     this.show_create_product_event.emit({
       title: 'Create Product'
-  });
+    });
   }
-  readOneProduct(id) { }
+  readOneProduct(id) {
+    console.log('rp comp readOneProduct');
+    // tell the parent component (AppComponent)
+    this.show_read_one_product_event.emit({
+      product_id: id,
+      title: 'Read One Product'
+    });
+  }
   updateProduct(id) { }
   deleteProduct(id) { }
 
