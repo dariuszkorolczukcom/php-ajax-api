@@ -4,7 +4,7 @@ API:
 https://www.codeofaninja.com/2017/02/create-simple-rest-api-in-php.html
 
 APP:
-https://www.codeofaninja.com/2015/06/php-crud-with-ajax-and-oop.html
+https://www.codeofaninja.com/2016/07/react-crud-tutorial.html
 
 Using PhpMyAdmin, create a new "api_db"
 
